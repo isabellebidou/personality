@@ -2,18 +2,16 @@ const express = require('express');
 const router = express.Router();
 const db = require ('../db/questions.js');
 router.get('/data',(req,res) => {
-
     const str = db.getCollection('questions').data;
-    console.log('handler str');
-    console.log(JSON.stringify(str));
+    //res.send(JSON.stringify(str));
+    res.send(str);
+});
 
-   /* const str = [{
-        "name":"isabelle",
-        "lname": "bidou",
-        "age": "25"
-    }];*/
+router.get('/results',(req,res) => {
 
-    res.send(JSON.stringify(str));
+    const str = db.getCollection('results').data;
+    //res.send(JSON.stringify(str));
+    res.send(str);
 });
 router.post('/result', (req, res) => {
     res.end('n/a')

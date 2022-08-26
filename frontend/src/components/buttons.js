@@ -5,7 +5,7 @@ class Buttons extends React.Component {
   start = (event) => {
     event.preventDefault();
     this.setState({ started: true });
-    this.props.onStart(this.state.answeredQuestion);
+    this.props.onStart(this.state.started);
   };
   next = (event) => {
     event.preventDefault();
@@ -14,17 +14,26 @@ class Buttons extends React.Component {
   };
 
   render() {
-    return (
-      <div className="buttons">
-        <button started={this.started} onClick={this.start}>
-          start
-        </button>
-        <button answeredQuestion={this.answeredQuestion} onClick={this.next}>
-          next
-        </button>
-      </div>
-    );
+    var myDiv = null;
+    if (this.state.started === false) {
+      myDiv = (
+        <div>
+          <button started={this.started} onClick={this.start}>
+            start
+          </button>
+        </div>
+      );
+    } else {
+      myDiv = (
+        <div>
+          <button answeredquestion={this.answeredQuestion} onClick={this.next}>
+            next
+          </button>
+        </div>
+      );
+    }
+
+    return <div className="buttons">{myDiv}</div>;
   }
 }
-
 export default Buttons;
