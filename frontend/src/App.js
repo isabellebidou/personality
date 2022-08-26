@@ -1,5 +1,4 @@
 import "./App.css";
-//import React, { useEffect, useState } from "react";
 import React from "react";
 import QuestionBundle from "./components/questionbundle";
 import Buttons from "./components/buttons";
@@ -13,7 +12,8 @@ class App extends React.Component {
     finished: false,
     score: 0,
     selectedAnswers: [],
-    messages:[]
+    messages:[],
+    message:''
   };
  
 
@@ -26,12 +26,32 @@ class App extends React.Component {
     const messages = await data2.json();
     this.setState({ messages: messages });
   };
+  getMessage = async () => {
+    var message = "";
+      switch (true) {
+        case (this.state.score <= 6):
+          message = this.state.messages.find(item => item.id === 1)
+          console.log(message);
+          break;
+        case (this.state.score > 6 && this.state.score < 10):
+            message = this.state.messages.find(item => item.id === 2)
+            console.log(message);
+            break;
+        default:
+          message = this.state.messages.find(item => item.id === 3);
+          console.log(message);
+          break;
+      }
+      console.log(message);
+      this.setState({ message: message });
+  }
 
   toNextQuestion = async (index) => {
     this.setState({ answeredQuestion: index });
     console.log(this.state.score);
     if (this.state.answeredQuestion === this.state.items.length - 1) {
       this.setState({ finished: true})
+      this.getMessage();
     }
   };
   onAnswerCheck = (weight, checked, id) => {
@@ -48,52 +68,29 @@ class App extends React.Component {
   };
 
   render() {
-    var myDiv = null;
-    if (this.state.items.length > 0 && !this.state.finished) {
-      myDiv = (
-        <div className="App">
+    return (
+      <div className="App">
+      {(this.state.items.length > 0) && (!this.state.finished) &&
           <QuestionBundle
             question={this.state.items[this.state.answeredQuestion]}
             onAnswerCheck={this.onAnswerCheck}
-          />
+          />}
+          {!this.state.finished &&
           <Buttons 
           onStart={this.startTest} 
           onNext={this.toNextQuestion} 
           started ={this.state.started}
-          />
+          />}
+          {this.state.finished &&
+            <div className="App">
+            <span>result: {this.state.score}</span>
+            <Result message={this.state.message}/>
+          </div>
+          }
+          
         </div>
-      );
-    } else if (this.state.items.length === 0 && !this.state.finished) {
-      myDiv = (
-        <div className="App">
-          <Buttons onStart={this.startTest} onNext={this.toNextQuestion} />
-        </div>
-      );
-    } else {
-      var message = "";
-    
-      switch (true) {
-        case (this.state.score <= 6):
-          message = this.state.messages.find(item => item.id === 1)
-          console.log(message);
-          break;
-        case (this.state.score > 6 && this.state.score < 10):
-            message = this.state.messages.find(item => item.id === 2)
-            console.log(message);
-            break;
-        default:
-          message = this.state.messages.find(item => item.id === 3);
-          console.log(message);
-          break;
-      }
-      myDiv = (
-        <div className="App">
-          <span>result: {this.state.score}</span>
-          <Result message = {message}/>
-        </div>
-      );
-    }
-    return <div className="App">{myDiv}</div>;
+      
+    );
   }
 }
 
