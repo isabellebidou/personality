@@ -1,7 +1,7 @@
 #Webimage-start-image{
     position: relative;
     opacity: 0.4;
-    display:  inline;
+    display:  block;
     border: 1px solid chocolate;
     margin: 0 auto;
     top: 0px;
