@@ -1,0 +1,29 @@
+#Webimage-start-image{
+    position: relative;
+    opacity: 0.4;
+    display:  inline;
+    border: 1px solid chocolate;
+    margin: 0 auto;
+    top: 0px;
+      
+}
+#Webimage-start-image-label{
+    text-align: center;
+    font-size: x-small;
+    margin: 0 auto;
+}
+@media screen and (max-width: 600px) {
+    #Webimage-start-image{
+        position: fixed;
+        max-height: 100%;
+        opacity: 0.4;
+        display: block;
+        height: 50%;
+        border: 1px solid chocolate;
+        margin: 0 auto;
+        z-index: -10;
+          
+    }
+ 
+    
+}

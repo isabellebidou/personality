@@ -1,9 +1,10 @@
+import "../styles/Question.css";
 import React from "react";
 
 export default function Question({ question }) {
   return (
     <>
-      <h1>{question}</h1>
+      <h1 className="question">{question}</h1>
     </>
   );
 }

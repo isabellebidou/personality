@@ -1,3 +1,4 @@
+import "../styles/Buttons.css";
 import React from "react";
 
 class Buttons extends React.Component {
@@ -18,7 +19,7 @@ class Buttons extends React.Component {
     if (this.state.started === false) {
       myDiv = (
         <div>
-          <button started={this.started} onClick={this.start}>
+          <button id= 'start-button' started={this.started} onClick={this.start}>
             start
           </button>
         </div>
@@ -26,7 +27,7 @@ class Buttons extends React.Component {
     } else {
       myDiv = (
         <div>
-          <button answeredquestion={this.answeredQuestion} onClick={this.next}>
+          <button id= 'next-button'answeredquestion={this.answeredQuestion} onClick={this.next}>
             next
           </button>
         </div>

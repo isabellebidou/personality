@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/App.css";
 import React from "react";
 import QuestionBundle from "./components/questionbundle";
 import Buttons from "./components/buttons";
@@ -79,8 +79,7 @@ class App extends React.Component {
         )}
         {this.state.finished && (
           <div className="App">
-            <span>result: {this.state.score}</span>
-            <Result message={this.state.message} />
+            <Result message={this.state.message} score= {this.state.score}/>
           </div>
         )}
         {!(this.state.started) && <Webimage />}

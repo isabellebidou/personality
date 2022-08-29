@@ -1,9 +1,11 @@
+import "../styles/Result.css";
 import React from "react";
 const Result = ({ score, message }) => {
     return (
       <div>
         <div className="content">
-        <p>
+        <h1 className="score">result: {score}</h1>
+        <p className="message">
         {message.message}
         </p>
           

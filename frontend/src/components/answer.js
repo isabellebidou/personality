@@ -1,3 +1,4 @@
+import "../styles/Answer.css";
 import React, { useState } from "react";
 
 
@@ -14,7 +15,8 @@ const Answer = (props) => {
   return (
     <div>
       {" "}
-      <input
+      <input 
+        className="answer"
         type="checkbox"
         key={props.id}
         id={props.id}
@@ -25,7 +27,7 @@ const Answer = (props) => {
         }}
         checked={isChecked}
       />
-      <label htmlFor={props.answer}>{props.answer}</label>
+      <label className = "answer-label" htmlFor={props.answer}>{props.answer}</label>
     </div>
   );
 };

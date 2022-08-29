@@ -1,0 +1,28 @@
+.content{
+    margin: 100px;
+    padding:100px;
+    border-color: black;
+   
+
+}
+.message{
+
+    font-size: x-large;
+    margin: 100px;
+    
+
+}
+.score {
+    margin: 100px;
+    font-size: x-large;
+}
+@media screen {
+    .content{
+        margin: 10px;
+        padding:10px;
+        border-color: black;
+        
+    
+    }
+    
+}
