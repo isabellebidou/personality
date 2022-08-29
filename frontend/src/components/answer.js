@@ -3,6 +3,7 @@ import React, { useState } from "react";
 
 const Answer = (props) => {
   const [isChecked, setIsChecked] = useState(false);
+  
   const handleCheck = (event) => {
     setIsChecked(event.target.checked);
     props.onAnswerCheck(props.weight, event.target.checked, props.id);

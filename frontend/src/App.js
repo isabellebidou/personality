@@ -3,6 +3,7 @@ import React from "react";
 import QuestionBundle from "./components/questionbundle";
 import Buttons from "./components/buttons";
 import Result from "./components/result";
+import Webimage from "./components/Webimage";
 
 class App extends React.Component {
   state = {
@@ -12,45 +13,44 @@ class App extends React.Component {
     finished: false,
     score: 0,
     selectedAnswers: [],
-    messages:[],
-    message:''
+    messages: [],
+    message: "",
   };
- 
 
   startTest = async (started) => {
     const data = await fetch("/data");
     const items = await data.json();
     this.setState({ items: items });
-    this.setState({ started: started }); 
+    this.setState({ started: true });
     const data2 = await fetch("/results");
     const messages = await data2.json();
     this.setState({ messages: messages });
   };
   getMessage = async () => {
     var message = "";
-      switch (true) {
-        case (this.state.score <= 6):
-          message = this.state.messages.find(item => item.id === 1)
-          console.log(message);
-          break;
-        case (this.state.score > 6 && this.state.score < 10):
-            message = this.state.messages.find(item => item.id === 2)
-            console.log(message);
-            break;
-        default:
-          message = this.state.messages.find(item => item.id === 3);
-          console.log(message);
-          break;
-      }
-      console.log(message);
-      this.setState({ message: message });
-  }
+    switch (true) {
+      case this.state.score <= 6:
+        message = this.state.messages.find((item) => item.id === 1);
+        console.log(message);
+        break;
+      case this.state.score > 6 && this.state.score < 10:
+        message = this.state.messages.find((item) => item.id === 2);
+        console.log(message);
+        break;
+      default:
+        message = this.state.messages.find((item) => item.id === 3);
+        console.log(message);
+        break;
+    }
+    console.log(message);
+    this.setState({ message: message });
+  };
 
   toNextQuestion = async (index) => {
-    this.setState({ answeredQuestion: index });
+    this.setState({ answeredQuestion: index + 1 });
     console.log(this.state.score);
     if (this.state.answeredQuestion === this.state.items.length - 1) {
-      this.setState({ finished: true})
+      this.setState({ finished: true });
       this.getMessage();
     }
   };
@@ -70,26 +70,28 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-      {(this.state.items.length > 0) && (!this.state.finished) &&
+
+        {this.state.items.length > 0 && !this.state.finished && (
           <QuestionBundle
             question={this.state.items[this.state.answeredQuestion]}
             onAnswerCheck={this.onAnswerCheck}
-          />}
-          {!this.state.finished &&
-          <Buttons 
-          onStart={this.startTest} 
-          onNext={this.toNextQuestion} 
-          started ={this.state.started}
-          />}
-          {this.state.finished &&
-            <div className="App">
+          />
+        )}
+        {this.state.finished && (
+          <div className="App">
             <span>result: {this.state.score}</span>
-            <Result message={this.state.message}/>
+            <Result message={this.state.message} />
           </div>
-          }
-          
-        </div>
-      
+        )}
+        {!(this.state.started) && <Webimage />}
+        {!this.state.finished && (
+          <Buttons
+            onStart={this.startTest}
+            onNext={this.toNextQuestion}
+            started={this.state.started}
+          />
+        )}
+      </div>
     );
   }
 }
