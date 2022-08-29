@@ -16,7 +16,6 @@ const Answer = (props) => {
       <input 
         className="answer-checkbox"
         type="checkbox"
-        key={props.id}
         id={props.id}
         name={props.answer}
         value={props.weight}
