@@ -32,7 +32,7 @@ db.addCollection('questions').insert([
         id: 4, 
         question:'A friend arrives late for your meeting. You:' , 
         answers: [
-        {id: "q4a1", answer: "Say, 'It's not a problem,’ even if that&#39;s not what you really think", weight: 1}, 
+        {id: "q4a1", answer: "Say, 'It's not a problem,’ even if that's not what you really think", weight: 1}, 
         {id: "q4a2", answer: 'Give them a filthy look and sulk for the rest of the evening', weight: 2}, 
         {id: "q4a3", answer: 'Make a scene in front of everyone', weight: 3} 
         ]  

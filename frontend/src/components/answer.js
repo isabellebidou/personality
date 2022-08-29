@@ -4,11 +4,9 @@ import React, { useState } from "react";
 
 const Answer = (props) => {
   const [isChecked, setIsChecked] = useState(false);
-  
   const handleCheck = (event) => {
     setIsChecked(event.target.checked);
     props.onAnswerCheck(props.weight, event.target.checked, props.id);
-    props.handleOtherCheckboxes(props.id);
   };
 
   //https://stackoverflow.com/a/72815049/1731667
@@ -16,7 +14,7 @@ const Answer = (props) => {
     <div>
       {" "}
       <input 
-        className="answer"
+        className="answer-checkbox"
         type="checkbox"
         key={props.id}
         id={props.id}
@@ -25,7 +23,6 @@ const Answer = (props) => {
         onChange={(event) => {
           handleCheck(event);
         }}
-        checked={isChecked}
       />
       <label className = "answer-label" htmlFor={props.answer}>{props.answer}</label>
     </div>

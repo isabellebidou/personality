@@ -31,28 +31,24 @@ class App extends React.Component {
     switch (true) {
       case this.state.score <= 6:
         message = this.state.messages.find((item) => item.id === 1);
-        console.log(message);
         break;
       case this.state.score > 6 && this.state.score < 10:
         message = this.state.messages.find((item) => item.id === 2);
-        console.log(message);
         break;
       default:
         message = this.state.messages.find((item) => item.id === 3);
-        console.log(message);
         break;
     }
-    console.log(message);
     this.setState({ message: message });
   };
 
   toNextQuestion = async (index) => {
     this.setState({ answeredQuestion: index + 1 });
-    console.log(this.state.score);
     if (this.state.answeredQuestion === this.state.items.length - 1) {
       this.setState({ finished: true });
       this.getMessage();
     }
+
   };
   onAnswerCheck = (weight, checked, id) => {
     if (checked && !this.state.selectedAnswers.includes(id)) {
@@ -90,6 +86,7 @@ class App extends React.Component {
             started={this.state.started}
           />
         )}
+        
       </div>
     );
   }
