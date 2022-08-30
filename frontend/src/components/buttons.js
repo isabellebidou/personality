@@ -8,35 +8,9 @@ class Buttons extends React.Component {
     this.props.onStart(this.state.started);
   };
   next = (event) => {
-    const numberChecked = this.checkCheckedNumber();
-    switch (true) {
-      case numberChecked < 1:
-          alert("please select an option");
-        break;
-        case numberChecked > 1:
-          alert("Only one option allowed");
-        break;
-      default:
-        this.setState({ answeredQuestion: this.state.answeredQuestion + 1 });
-        this.props.onNext(this.state.answeredQuestion);
-          break;
-    }
+    this.setState({ answeredQuestion: this.state.answeredQuestion + 1 });
+    this.props.onNext(this.state.answeredQuestion);
   };
-
-  checkCheckedNumber = () =>{
-    console.log("checkCheckedNumber");
-    var checked = [];
-    var checkboxes = document.getElementsByClassName("answer-checkbox");
-    for (let index = 0; index < checkboxes.length; index++) {
-      const checkbox = checkboxes[index];
-      if (checkbox.checked) checked.push(checkbox);
-    }
-    console.log(checked.length);
-    return checked.length;
-  }
-
- 
-
   render() {
     var myDiv = (
         <div className="buttons-div">
