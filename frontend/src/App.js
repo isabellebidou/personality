@@ -15,7 +15,8 @@ class App extends React.Component {
     selectedAnswers: [],
     messages: [],
     message: "",
-    index:0
+    index:0,
+    checked: false
   };
 // fetches the questions and the end messaged when the user clicks on start
   startTest = async () => {
@@ -44,8 +45,8 @@ class App extends React.Component {
   };
 
   toNextQuestion = async (index) => {
- 
-
+    //remove the next button 
+    this.setState({ checked: false });
     // make sure only one answer is submitted
     if (this.state.selectedAnswers.length > index + 1) {
       alert(
@@ -53,12 +54,22 @@ class App extends React.Component {
       );
     } else {
       this.setState({ answeredQuestion: index + 1 });
+
       if (this.state.answeredQuestion === this.state.questions.length - 1) {
         this.setState({ finished: true });
         this.getMessage();
       }
     }
   };
+  checkIfChecked = () => {
+    var checkboxes = document.getElementsByClassName('answer-checkbox');
+    console.log(checkboxes);
+    for (let index = 0; index < checkboxes.length; index++) {
+      const checkbox = checkboxes[index];
+      if (checkbox.checked)
+      return true;
+    }
+  }
   // called each time an answer is selected or deselected
   // a new selected answer is added to the list of selected answers
   // a previously selected answer is removed from the list if uchecked
@@ -66,13 +77,16 @@ class App extends React.Component {
     if (checked && !this.state.selectedAnswers.includes(id)) {
       this.state.selectedAnswers.push(id);
       this.setState({ score: this.state.score + weight });
+      this.setState({ checked: true });
     } else if (!checked && this.state.selectedAnswers.includes(id)) {
       const index = this.state.selectedAnswers.indexOf(id);
+      this.setState({checked: this.checkIfChecked()});
       if (index > -1) {
         //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
         this.state.selectedAnswers.splice(index, 1);
+        this.setState({ score: this.state.score - weight });
       }
-    }
+    } 
   };
 
   render() {
@@ -90,13 +104,13 @@ class App extends React.Component {
           </div>
         )}
         {!this.state.started && <Webimage />}
-        {!this.state.finished && (
+        {!this.state.finished &&(
           <Buttons
             onStart={this.startTest}
             onNext={this.toNextQuestion}
             started={this.state.started}
+            checked= {this.state.checked}
             answeredQuestionIndex = {this.state.answeredQuestion}
-
           />
         )}
       </div>

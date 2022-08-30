@@ -2,16 +2,15 @@ import "../styles/Buttons.css";
 import React from "react";
 
 class Buttons extends React.Component {
-  state = { started: false, answeredQuestion: 0 };
+  state = { started: false, answeredQuestion: 0 , checked: false};
   start = (event) => {
-    event.preventDefault();
     this.setState({ started: true });
     this.props.onStart(this.state.started);
   };
   next = (event) => {
-    event.preventDefault();
     this.setState({ answeredQuestion: this.state.answeredQuestion + 1 });
     this.props.onNext(this.state.answeredQuestion);
+    console.log(this.state.answeredQuestion);
   };
 
   render() {
@@ -26,10 +25,13 @@ class Buttons extends React.Component {
       );
     } else {
       myDiv = (
+        
         <div>
-          <button id= 'next-button'answeredquestion={this.answeredQuestion} onClick={this.next}>
+        {this.props.checked &&(
+          <button id= 'next-button' answeredquestion={this.answeredQuestion} onClick={this.next}>
             next
           </button>
+          )}
         </div>
       );
     }
