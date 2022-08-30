@@ -1,4 +1,8 @@
-.answer{
+
+.answer-div{
+    padding-bottom: 1em;
+}
+.answer-checkbox{
     margin: 1em;
 }
 .answer-label{

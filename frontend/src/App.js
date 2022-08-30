@@ -15,10 +15,10 @@ class App extends React.Component {
     selectedAnswers: [],
     messages: [],
     message: "",
-    index:0,
-    checked: false
+    index: 0,
+    checked: false,
   };
-// fetches the questions and the end messaged when the user clicks on start
+  // fetches the questions and the end messaged when the user clicks on start
   startTest = async () => {
     const data = await fetch("/data");
     const questions = await data.json();
@@ -28,24 +28,9 @@ class App extends React.Component {
     const messages = await data2.json();
     this.setState({ messages: messages });
   };
-  getMessage = async () => {
-    var message = "";
-    switch (true) {
-      case this.state.score <= 6:
-        message = this.state.messages.find((item) => item.id === 1);
-        break;
-      case this.state.score > 6 && this.state.score < 10:
-        message = this.state.messages.find((item) => item.id === 2);
-        break;
-      default:
-        message = this.state.messages.find((item) => item.id === 3);
-        break;
-    }
-    this.setState({ message: message });
-  };
-
+  // called when the user clicks on the next button
   toNextQuestion = async (index) => {
-    //remove the next button 
+    //remove the next button
     this.setState({ checked: false });
     // make sure only one answer is submitted
     if (this.state.selectedAnswers.length > index + 1) {
@@ -61,15 +46,29 @@ class App extends React.Component {
       }
     }
   };
+  //once all the questions are answered the result message is selected according to the score
+  getMessage = async () => {
+    var message = "";
+    switch (true) {
+      case this.state.score <= 6:
+        message = this.state.messages.find((item) => item.id === 1);
+        break;
+      case this.state.score > 6 && this.state.score < 10:
+        message = this.state.messages.find((item) => item.id === 2);
+        break;
+      default:
+        message = this.state.messages.find((item) => item.id === 3);
+        break;
+    }
+    this.setState({ message: message });
+  };
   checkIfChecked = () => {
-    var checkboxes = document.getElementsByClassName('answer-checkbox');
-    console.log(checkboxes);
+    var checkboxes = document.getElementsByClassName("answer-checkbox");
     for (let index = 0; index < checkboxes.length; index++) {
       const checkbox = checkboxes[index];
-      if (checkbox.checked)
-      return true;
+      if (checkbox.checked) return true;
     }
-  }
+  };
   // called each time an answer is selected or deselected
   // a new selected answer is added to the list of selected answers
   // a previously selected answer is removed from the list if uchecked
@@ -80,13 +79,13 @@ class App extends React.Component {
       this.setState({ checked: true });
     } else if (!checked && this.state.selectedAnswers.includes(id)) {
       const index = this.state.selectedAnswers.indexOf(id);
-      this.setState({checked: this.checkIfChecked()});
+      this.setState({ checked: this.checkIfChecked() });
       if (index > -1) {
         //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
         this.state.selectedAnswers.splice(index, 1);
         this.setState({ score: this.state.score - weight });
       }
-    } 
+    }
   };
 
   render() {
@@ -104,13 +103,13 @@ class App extends React.Component {
           </div>
         )}
         {!this.state.started && <Webimage />}
-        {!this.state.finished &&(
+        {!this.state.finished && (
           <Buttons
             onStart={this.startTest}
             onNext={this.toNextQuestion}
             started={this.state.started}
-            checked= {this.state.checked}
-            answeredQuestionIndex = {this.state.answeredQuestion}
+            checked={this.state.checked}
+            answeredQuestionIndex={this.state.answeredQuestion}
           />
         )}
       </div>
@@ -119,4 +118,5 @@ class App extends React.Component {
 }
 
 export default App;
+//react frontend and backend
 //https://www.youtube.com/watch?v=3isCTSUdXaQ

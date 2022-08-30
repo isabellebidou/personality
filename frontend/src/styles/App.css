@@ -1,17 +1,17 @@
 
 body{
   color: goldenrod;
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   z-index: 1;
-  top: 5%;
+  top: -5%;
 }
 .App {
   text-align: center;
   position: relative;
   z-index: 2;
-  top: 5%;
+  bottom: 5%;
 }
 
 .App-logo {

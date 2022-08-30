@@ -10,23 +10,17 @@ class Buttons extends React.Component {
   next = (event) => {
     this.setState({ answeredQuestion: this.state.answeredQuestion + 1 });
     this.props.onNext(this.state.answeredQuestion);
-    console.log(this.state.answeredQuestion);
+    //console.log(this.state.answeredQuestion);
   };
 
   render() {
-    var myDiv = null;
-    if (this.state.started === false) {
-      myDiv = (
-        <div>
-          <button id= 'start-button' started={this.started} onClick={this.start}>
-            start
-          </button>
-        </div>
-      );
-    } else {
-      myDiv = (
-        
-        <div>
+    var myDiv = (
+        <div className="buttons-div">
+        {this.state.started === false &&
+        <button id= 'start-button' started={this.started} onClick={this.start}>
+          start
+        </button>
+        }
         {this.props.checked &&(
           <button id= 'next-button' answeredquestion={this.answeredQuestion} onClick={this.next}>
             next
@@ -34,7 +28,7 @@ class Buttons extends React.Component {
           )}
         </div>
       );
-    }
+    
 
     return <div className="buttons">{myDiv}</div>;
   }

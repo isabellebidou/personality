@@ -6,7 +6,7 @@ export default function Answers({ answers ,onAnswerCheck}) {
     return (
       <Answer
         answer={answer}
-        key = {answer.id}//https://stackoverflow.com/a/43892905/1731667
+        key = {answer.id}//https://stackoverflow.com/a/43892905/1731667 unique id 
         onAnswerCheck = {onAnswerCheck}
         {...answer}
       />

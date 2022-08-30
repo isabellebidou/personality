@@ -1,10 +1,9 @@
 #Webimage-start-image{
-    position: relative;
     opacity: 0.4;
     display:  block;
     border: 1px solid chocolate;
     margin: 0 auto;
-    top: 0px;
+    bottom: 0px;
       
 }
 #Webimage-start-image-label{

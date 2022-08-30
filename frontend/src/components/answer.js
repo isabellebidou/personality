@@ -5,13 +5,13 @@ import React, { useState } from "react";
 const Answer = (props) => {
   const [isChecked, setIsChecked] = useState(false);
   const handleCheck = (event) => {
+    //https://stackoverflow.com/a/72815049/1731667  set checkbox
     setIsChecked(event.target.checked);
     props.onAnswerCheck(props.weight, event.target.checked, props.id);
   };
 
-  //https://stackoverflow.com/a/72815049/1731667
   return (
-    <div>
+    <div className="answer-div">
       {" "}
       <input 
         className="answer-checkbox"
