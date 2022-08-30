@@ -29,10 +29,10 @@ button:active{
     bottom:10%;
     left:35%;
 }
-@media screen {
-    button{
-        position: relative;
-        bottom: 1 em;
+@media screen and (max-width: 600px){
+    .buttons-div {
+        position: fixed;
+        top:20%;
     
     }
     

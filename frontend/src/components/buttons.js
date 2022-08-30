@@ -19,11 +19,11 @@ class Buttons extends React.Component {
           start
         </button>
         }
-        {this.props.checked &&(
+        {this.props.checked &&
           <button id= 'next-button' answeredquestion={this.answeredQuestion} onClick={this.next}>
             next
           </button>
-          )}
+          }
         </div>
       );
     
