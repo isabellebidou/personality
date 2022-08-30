@@ -7,7 +7,7 @@ import Webimage from "./components/Webimage";
 
 class App extends React.Component {
   state = {
-    items: [],
+    questions: [],
     answeredQuestion: 0,
     started: false,
     finished: false,
@@ -15,12 +15,13 @@ class App extends React.Component {
     selectedAnswers: [],
     messages: [],
     message: "",
+    index:0
   };
-
-  startTest = async (started) => {
+// fetches the questions and the end messaged when the user clicks on start
+  startTest = async () => {
     const data = await fetch("/data");
-    const items = await data.json();
-    this.setState({ items: items });
+    const questions = await data.json();
+    this.setState({ questions: questions });
     this.setState({ started: true });
     const data2 = await fetch("/results");
     const messages = await data2.json();
@@ -43,13 +44,24 @@ class App extends React.Component {
   };
 
   toNextQuestion = async (index) => {
-    this.setState({ answeredQuestion: index + 1 });
-    if (this.state.answeredQuestion === this.state.items.length - 1) {
-      this.setState({ finished: true });
-      this.getMessage();
-    }
+ 
 
+    // make sure only one answer is submitted
+    if (this.state.selectedAnswers.length > index + 1) {
+      alert(
+        "Warning: only one answer is accepted, please deselect one and try again"
+      );
+    } else {
+      this.setState({ answeredQuestion: index + 1 });
+      if (this.state.answeredQuestion === this.state.questions.length - 1) {
+        this.setState({ finished: true });
+        this.getMessage();
+      }
+    }
   };
+  // called each time an answer is selected or deselected
+  // a new selected answer is added to the list of selected answers
+  // a previously selected answer is removed from the list if uchecked
   onAnswerCheck = (weight, checked, id) => {
     if (checked && !this.state.selectedAnswers.includes(id)) {
       this.state.selectedAnswers.push(id);
@@ -57,8 +69,8 @@ class App extends React.Component {
     } else if (!checked && this.state.selectedAnswers.includes(id)) {
       const index = this.state.selectedAnswers.indexOf(id);
       if (index > -1) {
-        this.state.selectedAnswers.splice(index, 1);
         //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+        this.state.selectedAnswers.splice(index, 1);
       }
     }
   };
@@ -66,27 +78,27 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-
-        {this.state.items.length > 0 && !this.state.finished && (
+        {this.state.questions.length > 0 && !this.state.finished && (
           <QuestionBundle
-            question={this.state.items[this.state.answeredQuestion]}
+            question={this.state.questions[this.state.answeredQuestion]}
             onAnswerCheck={this.onAnswerCheck}
           />
         )}
         {this.state.finished && (
           <div className="App">
-            <Result message={this.state.message} score= {this.state.score}/>
+            <Result message={this.state.message} score={this.state.score} />
           </div>
         )}
-        {!(this.state.started) && <Webimage />}
+        {!this.state.started && <Webimage />}
         {!this.state.finished && (
           <Buttons
             onStart={this.startTest}
             onNext={this.toNextQuestion}
             started={this.state.started}
+            answeredQuestionIndex = {this.state.answeredQuestion}
+
           />
         )}
-        
       </div>
     );
   }
