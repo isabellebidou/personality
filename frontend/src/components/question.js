@@ -1,4 +1,4 @@
-import "../styles/Question.css";
+
 import React from "react";
 
 export default function Question({ question }) {

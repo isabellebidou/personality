@@ -62,7 +62,6 @@ class App extends React.Component {
       const checkbox = checkboxes[index];
       if (checkbox.checked) checked.push(checkbox);
     }
-    console.log(checked.length)
     return checked.length;
   };
   

@@ -14,8 +14,8 @@
 @media screen and (max-width: 600px) {
     #Webimage-start-image{
         position: fixed;
-        max-height: 100%;
         opacity: 0.4;
+        top:2%;
         display: block;
         height: 50%;
         border: 1px solid chocolate;

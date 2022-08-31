@@ -7,12 +7,10 @@ router.get('/data',(req,res) => {
 });
 
 router.get('/results',(req,res) => {
-
     const str = db.getCollection('results').data;
     res.send(str);
 });
 router.post('/result', (req, res) => {
     res.end('n/a')
-
 })
 module.exports = router;

@@ -12,7 +12,7 @@ db.addCollection('questions').insert([
     },
     {
         id: 2, 
-        question: "You forgot your swimming suit to the beach party You:" , 
+        question: "You forgot your swimming suit to the beach party. You:" , 
         answers: [
         {id: "q2a1", answer: "you pretext you have a headache and won't be able to swim and have to stay in the shadow", weight: 1,checked : false}, 
         {id: "q2a2", answer: 'Bummer! Has any one brought a spare one by any chance?', weight: 2,checked : false}, 
