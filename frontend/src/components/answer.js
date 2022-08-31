@@ -13,6 +13,7 @@ const Answer = (props) => {
         className="answer-checkbox"
         type="checkbox"
         id={props.id}
+        data-testid = {props.id}
         name={props.answer}
         value={props.weight}
         onChange={(event) => {

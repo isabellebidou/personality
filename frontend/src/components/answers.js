@@ -15,7 +15,7 @@ export default function Answers({ answers ,onAnswerCheck}) {
   });
 
   return (
-    <div className="">
+    <div className="answers-div">
       {answerElements}
     </div>
   );

@@ -7,9 +7,13 @@
       
 }
 #Webimage-start-image-label{
+    position: fixed;
     text-align: center;
     font-size: x-small;
     margin: 0 auto;
+    width:30%;
+    bottom:10%;
+    left:35%;
 }
 @media screen and (max-width: 600px) {
     #Webimage-start-image{
@@ -22,6 +26,10 @@
         margin: 0 auto;
         z-index: -10;
           
+    }
+    #Webimage-start-image-label{
+        top:1%;
+
     }
  
     

@@ -6,7 +6,7 @@ const QuestionBundle = ({ question, onAnswerCheck }) => {
   return (
     <div>
       <div className="content">
-        <Question question={question.question} />
+        <Question question={question.question}/>
         <Answers onAnswerCheck = {onAnswerCheck} answers={question.answers} />
       </div>
     </div>
