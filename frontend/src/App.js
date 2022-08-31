@@ -7,16 +7,15 @@ import Webimage from "./components/Webimage";
 
 class App extends React.Component {
   state = {
-    questions: [],
-    answeredQuestion: 0,
-    started: false,
-    finished: false,
-    score: 0,
-    selectedAnswers: [],
-    messages: [],
-    message: "",
-    index: 0,
-    checked: false,
+    questions: [],//questions retreived from memory
+    answeredQuestion: 0,//keeps track of the index of the question currently on display
+    started: false,//keeps track if test already started
+    finished: false,//keeps track if test already ended
+    score: 0,//sum of the weights of aswered questions
+    selectedAnswers: [],//contains the ids of selected answers
+    messages: [],//personality portrait data retreived from memory- used for final result view
+    message: "",//portrait result for current test
+    readyForNext: false,//true when one and only one checkbox is checked
   };
   // fetches the questions and the end messaged when the user clicks on start
   startTest = async () => {
@@ -31,7 +30,7 @@ class App extends React.Component {
   // called when the user clicks on the next button
   toNextQuestion = async (index) => {
     //remove the next button
-    this.setState({ checked: false });
+    this.setState({ readyForNext: false });
     this.setState({ answeredQuestion: index + 1 });
     if (this.state.answeredQuestion === this.state.questions.length - 1) {
       this.setState({ finished: true });
@@ -55,7 +54,7 @@ class App extends React.Component {
     }
     this.setState({ message: message });
   };
-
+  //returns number of checked answers in question on display
   checkedNumber = () => {
     const checked = [];
     var checkboxes = document.getElementsByClassName("answer-checkbox");
@@ -71,7 +70,7 @@ class App extends React.Component {
   // a new selected answer is added to the list of selected answers
   // a previously selected answer is removed from the list if uchecked
   onAnswerCheck = (weight, checked, id) => {
-    this.setState({ checked: this.checkedNumber() === 1 ? true : false});
+    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false});
     if (checked && !this.state.selectedAnswers.includes(id)) {
       this.state.selectedAnswers.push(id);
       this.setState({ score: this.state.score + weight });
@@ -105,7 +104,7 @@ class App extends React.Component {
             onStart={this.startTest}
             onNext={this.toNextQuestion}
             started={this.state.started}
-            checked={this.state.checked}
+            checked={this.state.readyForNext}
             answeredQuestionIndex={this.state.answeredQuestion}
           />
         )}
@@ -115,5 +114,5 @@ class App extends React.Component {
 }
 
 export default App;
-//react frontend and backend
+//react frontend and node.js backend together
 //https://www.youtube.com/watch?v=3isCTSUdXaQ
