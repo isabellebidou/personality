@@ -11,7 +11,7 @@ const Answer = (props) => {
     <div className="answer-div">
       <input 
         className="answer-checkbox"
-        type="checkbox"
+        type="radio"
         id={props.id}
         data-testid = {props.id}
         name={props.answer}

@@ -41,17 +41,8 @@ class App extends React.Component {
   //once all the questions are answered the result message is selected according to the score
   getMessage = async () => {
     var message = "";
-    switch (true) {
-      case this.state.score <= 6:
-        message = this.state.messages.find((item) => item.id === 1);
-        break;
-      case this.state.score > 6 && this.state.score < 10:
-        message = this.state.messages.find((item) => item.id === 2);
-        break;
-      default:
-        message = this.state.messages.find((item) => item.id === 3);
-        break;
-    }
+    var index = Math.ceil(this.state.score / this.state.questions.length);
+    message = this.state.messages.find((item) => item.id === index);
     this.setState({ message: message });
   };
   //returns number of checked answers in question on display
