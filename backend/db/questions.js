@@ -70,7 +70,9 @@ db.addCollection('results').insert([
 
 ]);
 db.addCollection('answered');
+
 db.saveDatabase();
+
 
 
 module.exports = db;

@@ -7,15 +7,14 @@ import Webimage from "./components/Webimage";
 
 class App extends React.Component {
   state = {
-    questions: [],//questions retreived from memory
-    answeredQuestion: 0,//keeps track of the index of the question currently on display
-    started: false,//keeps track if test already started
-    finished: false,//keeps track if test already ended
-    score: 0,//sum of the weights of aswered questions
-    selectedAnswers: [],//contains the ids of selected answers
-    messages: [],//personality portrait data retreived from memory- used for final result view
-    message: "",//portrait result for current test
-    readyForNext: false,//true when one and only one checkbox is checked
+    questions: [], //questions retreived from memory
+    answeredQuestion: 0, //keeps track of the index of the question currently on display
+    started: false, //keeps track if test already started
+    finished: false, //keeps track if test already ended
+    score: 0, //sum of the weights of aswered questions
+    selectedAnswers: [], //contains the ids of selected answers
+    message: "", //portrait result for current test
+    readyForNext: false, //true when one and only one checkbox is checked
   };
   // fetches the questions and the end messaged when the user clicks on start
   startTest = async () => {
@@ -23,9 +22,6 @@ class App extends React.Component {
     const questions = await data.json();
     this.setState({ questions: questions });
     this.setState({ started: true });
-    const data2 = await fetch("/results");
-    const messages = await data2.json();
-    this.setState({ messages: messages });
   };
   // called when the user clicks on the next button
   toNextQuestion = async (index) => {
@@ -36,14 +32,13 @@ class App extends React.Component {
       this.setState({ finished: true });
       this.getMessage();
     }
-    
   };
   //once all the questions are answered the result message is selected according to the score
   getMessage = async () => {
-    var message = "";
     var index = Math.ceil(this.state.score / this.state.questions.length);
-    message = this.state.messages.find((item) => item.id === index);
-    this.setState({ message: message });
+    const messageData = await fetch("/results/:" + index);
+    const messageJson = await messageData.json();
+    this.setState({ message: messageJson });
   };
   //returns number of checked answers in question on display
   checkedNumber = () => {
@@ -55,12 +50,12 @@ class App extends React.Component {
     }
     return checked.length;
   };
-  
+
   // called each time an answer is selected or deselected
   // a new selected answer is added to the list of selected answers
   // a previously selected answer is removed from the list if uchecked
   onAnswerCheck = (weight, checked, id) => {
-    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false});
+    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false });
     if (checked && !this.state.selectedAnswers.includes(id)) {
       this.state.selectedAnswers.push(id);
       this.setState({ score: this.state.score + weight });
