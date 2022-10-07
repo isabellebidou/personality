@@ -4,7 +4,7 @@ import React from "react";
 
 const Answer = (props) => {
   const handleCheck = (event) => {
-    props.onAnswerCheck(props.weight, event.target.checked, props.id);
+    props.onAnswerCheck();
   };
 
   return (
@@ -14,11 +14,13 @@ const Answer = (props) => {
         type="radio"
         id={props.id}
         data-testid = {props.id}
-        name={props.answer}
+        //https://stackoverflow.com/questions/44317663/uncheck-radio-buttons-in-react
+        name={"radio"}
         value={props.weight}
-        onChange={(event) => {
+        onClick={(event) => {
           handleCheck(event);
         }}
+
       />
       <label className = "answer-label" htmlFor={props.answer}>{props.answer}</label>
     </div>

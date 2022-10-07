@@ -12,7 +12,6 @@ class App extends React.Component {
     started: false, //keeps track if test already started
     finished: false, //keeps track if test already ended
     score: 0, //sum of the weights of aswered questions
-    selectedAnswers: [], //contains the ids of selected answers
     message: "", //portrait result for current test
     readyForNext: false, //true when one and only one checkbox is checked
   };
@@ -28,6 +27,8 @@ class App extends React.Component {
     //remove the next button
     this.setState({ readyForNext: false });
     this.setState({ answeredQuestion: index + 1 });
+    const answer = this.checkedAnswer();
+    this.setState({ score: this.state.score + parseInt(answer.value)});
     if (this.state.answeredQuestion === this.state.questions.length - 1) {
       this.setState({ finished: true });
       this.getMessage();
@@ -50,23 +51,18 @@ class App extends React.Component {
     }
     return checked.length;
   };
-
-  // called each time an answer is selected or deselected
-  // a new selected answer is added to the list of selected answers
-  // a previously selected answer is removed from the list if uchecked
-  onAnswerCheck = (weight, checked, id) => {
-    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false });
-    if (checked && !this.state.selectedAnswers.includes(id)) {
-      this.state.selectedAnswers.push(id);
-      this.setState({ score: this.state.score + weight });
-    } else if (!checked && this.state.selectedAnswers.includes(id)) {
-      const index = this.state.selectedAnswers.indexOf(id);
-      if (index > -1) {
-        //https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
-        this.state.selectedAnswers.splice(index, 1);
-        this.setState({ score: this.state.score - weight });
-      }
+  checkedAnswer = () => {
+    var radios = document.getElementsByClassName("answer-checkbox");
+    for (let index = 0; index < radios.length; index++) {
+      const radio = radios[index];
+      if (radio.checked) return radio;
     }
+    return null;
+  };
+
+  // called each time an answer is selected
+  onAnswerCheck = () => {
+    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false });
   };
 
   render() {

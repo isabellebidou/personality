@@ -3,11 +3,11 @@ const db = new loki('db.json');
 db.addCollection('questions').insert([
     {
         id: 1, 
-        question:"It's time for your annual appraisal with your boss. You:" , 
+        question:"your birthday is coming soon. You:" , 
         answers: [
-        {id: "q1a1", answer: 'Look forward to hearing what your boss thinks about you and expects from you', weight: 1, checked : false}, 
-        {id: "q1a2", answer: 'Rehearse ad nauseam the arguments and ideas that you’ve prepared for the meeting', weight: 2,checked : false}, 
-        {id: "q1a3", answer: 'Go along unprepared as you are confident and like improvising', weight: 3,checked : false} 
+        {id: "q1a1", answer: 'You do not really want people to know and prefer to keep it to yourself', weight: 1, checked : false}, 
+        {id: "q1a2", answer: 'you want to have a dinner party at the restaurant with your close friends', weight: 2,checked : false}, 
+        {id: "q1a3", answer: 'You have been planning the event for a while already, you are organising a great party at home and an after at the club> there will be a live stream on social media. Everyone needs to know!', weight: 3,checked : false} 
         ]
     },
     {
