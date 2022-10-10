@@ -1,14 +1,14 @@
 import Answer from "./answer.js";
 
 
-export default function Answers({ answers ,onAnswerCheck}) {
+export default function Answers({ answers ,onAnswerSelect}) {
   const answerElements = answers.map((answer) => {
     return (
       <Answer
         answer={answer}
         //https://stackoverflow.com/a/43892905/1731667 unique id
         key = {answer.id}
-        onAnswerCheck = {onAnswerCheck}
+        onAnswerSelect = {onAnswerSelect}
         {...answer}
       />
     );

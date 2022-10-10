@@ -3,8 +3,8 @@ import React from "react";
 
 
 const Answer = (props) => {
-  const handleCheck = (event) => {
-    props.onAnswerCheck();
+  const handleSelect = (event) => {
+    props.onAnswerSelect();
   };
 
   return (
@@ -18,7 +18,7 @@ const Answer = (props) => {
         name={"radio"}
         value={props.weight}
         onClick={(event) => {
-          handleCheck(event);
+          handleSelect(event);
         }}
 
       />

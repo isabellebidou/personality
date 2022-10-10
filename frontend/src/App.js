@@ -41,16 +41,6 @@ class App extends React.Component {
     const messageJson = await messageData.json();
     this.setState({ message: messageJson });
   };
-  //returns number of checked answers in question on display
-  checkedNumber = () => {
-    const checked = [];
-    var checkboxes = document.getElementsByClassName("answer-checkbox");
-    for (let index = 0; index < checkboxes.length; index++) {
-      const checkbox = checkboxes[index];
-      if (checkbox.checked) checked.push(checkbox);
-    }
-    return checked.length;
-  };
   checkedAnswer = () => {
     var radios = document.getElementsByClassName("answer-checkbox");
     for (let index = 0; index < radios.length; index++) {
@@ -61,8 +51,8 @@ class App extends React.Component {
   };
 
   // called each time an answer is selected
-  onAnswerCheck = () => {
-    this.setState({ readyForNext: this.checkedNumber() === 1 ? true : false });
+  onAnswerSelect = () => {
+    this.setState({ readyForNext: true });
   };
 
   render() {
@@ -71,7 +61,7 @@ class App extends React.Component {
         {this.state.questions.length > 0 && !this.state.finished && (
           <QuestionBundle
             question={this.state.questions[this.state.answeredQuestion]}
-            onAnswerCheck={this.onAnswerCheck}
+            onAnswerSelect={this.onAnswerSelect}
           />
         )}
         {this.state.finished && (
